@@ -8,9 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "logo": "url('../public/logo.png')"
-      },
+      colors: {
+        "vblack": "#303841",
+        "vwhite": "#EEEEEE",
+        "vorange": "#FF5722",
+        "vblue": "#00ADB5"
+      }
     },
   },
   plugins: [],
