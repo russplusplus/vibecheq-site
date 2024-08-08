@@ -5,7 +5,16 @@ import { useState, useEffect } from 'react'
 import { Spinner } from "@nextui-org/spinner";
 import ClipLoader from "react-spinners/ClipLoader"
 
+import { initializeApp } from "firebase/app"
+import { getDatabase } from "firebase/database"
+
 const log = console.log.bind(console)
+
+const firebaseConfig = {
+
+}
+
+const app = initializeApp
 
 export default function DeleteMyData() {
 
@@ -36,6 +45,7 @@ export default function DeleteMyData() {
                     {isLoading 
                     ? <ClipLoader
                         size={14}
+                        color={"#303841"}
                     />
                     : <>Send passcode</>
                     }
