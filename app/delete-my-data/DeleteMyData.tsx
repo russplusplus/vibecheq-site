@@ -56,9 +56,8 @@ export default function DeleteMyData({
     }
 
     async function setUpRecaptcha() {
-        log('in setUpRecaptcha')
         const auth = authStr ? await JSON.parse(authStr) : null
-        // log('auth:', auth)
+        log('in setUpRecaptcha. auth:', auth)
         if (!auth) return
         log('auth is not null')
         setAuth(auth)

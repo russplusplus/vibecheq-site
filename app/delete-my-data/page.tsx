@@ -30,10 +30,10 @@ const firebaseConfig = {
 log('firebaseConfig:', firebaseConfig)
 
 const app = initializeApp(firebaseConfig);
-log('app initialized')
+log('app initialized. app:', app)
 
 const auth = getAuth()
-log('auth:', auth)
+// log('page auth:', auth)
 
 export default function DeleteMyDataContainer(props: any) {
 
