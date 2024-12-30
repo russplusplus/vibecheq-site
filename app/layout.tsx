@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 // import { AuthContextProvider } from "../pages/delete-my-data/AuthContext"
-import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, User, Auth } from 'firebase/auth'
+// import { initializeApp } from "firebase/app";
+// import { getAuth, onAuthStateChanged, User, Auth } from 'firebase/auth'
 
 const log = console.log.bind(console)
 

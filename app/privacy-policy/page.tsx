@@ -3,9 +3,9 @@ export default function Page() {
         <div className="m-20 text-vwhite">
             <h1 className="text-3xl mb-4">Privacy Policy</h1>
             <p>
-                This Privacy Policy ("Policy") applies to Vibecheq, and Vibecheq, LLC ("Company") and governs data collection and usage. 
+                This Privacy Policy (&quot;Policy&quot;) applies to Vibecheq, and Vibecheq, LLC (&quot;Company&quot;) and governs data collection and usage. 
                 For the purposes of this Privacy Policy, unless otherwise noted, all references to the Company include vibecheq.org. 
-                The Company's application is a social media application. By using the Company application, you consent to the data practices 
+                The Company&apos;s application is a social media application. By using the Company application, you consent to the data practices 
                 described in this statement. 
             </p>
             
@@ -35,7 +35,7 @@ export default function Page() {
                 <li className="ml-2">- to operate and deliver the services you have requested </li>
                 <li className="ml-2">- to provide you with information, products, or services that you request from us </li>
                 <li className="ml-2">- to provide you with notices about your account </li>
-                <li className="ml-2">- to carry out the Company's obligations and enforce our rights arising from any contracts entered between you and us, including for billing and collection </li>
+                <li className="ml-2">- to carry out the Company&apos;s obligations and enforce our rights arising from any contracts entered between you and us, including for billing and collection </li>
                 <li className="ml-2">- to notify you about changes to our Vibecheq or any products or services we offer or provide through it </li>
                 <li className="ml-2">- in any other way we may describe when you provide the information </li>
                 <li className="ml-2">- for any other purpose with your consent. </li>
