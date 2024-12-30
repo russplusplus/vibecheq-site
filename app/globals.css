@@ -18,7 +18,7 @@ html {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: rgb(var(--white));
   /* background-image: url('../public/background3.png');
   background-position: center;
   background-size: cover; */
@@ -32,6 +32,10 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb)); */
+}
+
+p {
+  margin-top: 0.5rem;
 }
 
 @layer utilities {
