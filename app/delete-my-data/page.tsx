@@ -4,13 +4,8 @@ import "../../app/globals.css";
 import 'react-phone-number-input/style.css'
 import PhoneInput, { type Value } from 'react-phone-number-input'
 import { useState, useEffect } from 'react'
-import { Spinner } from "@nextui-org/spinner";
 import ClipLoader from "react-spinners/ClipLoader"
-
-import { getDatabase } from "firebase/database"
-
-import { initializeApp } from "firebase/app";
-// import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check"
+import { initializeApp, FirebaseApp, FirebaseOptions } from "firebase/app";
 import { 
     getAuth, 
     onAuthStateChanged, 
@@ -18,58 +13,60 @@ import {
     signInWithPhoneNumber, 
     ConfirmationResult, 
     User, 
-    deleteUser 
+    deleteUser,
+    Auth
 } from 'firebase/auth'
-
-import dynamic from 'next/dynamic'
 
 const log = console.log.bind(console)
 
-const firebaseConfig = window.location.origin.includes("localhost") 
-? {
-    apiKey: "AIzaSyBS_IdUAjkyZaiiGosPPnr23mCn2MiItVk",
-    authDomain: "vibecheq-dev-d930b.firebaseapp.com",
-    databaseURL: "https://vibecheq-dev-d930b-default-rtdb.firebaseio.com",
-    projectId: "vibecheq-dev-d930b",
-    storageBucket: "vibecheq-dev-d930b.appspot.com",
-    messagingSenderId: "958818368953",
-    appId: "1:958818368953:web:a42c67cd34e1a81c268a68",
-    measurementId: "G-QM9V6YHLE2"
-}
-: {
-    apiKey: "AIzaSyDMDfZyu9ysYxKCfYOaDeBW75-ZkLrnQpI",
-    authDomain: "vibecheq-prod.firebaseapp.com",
-    databaseURL: "https://vibecheq-prod-default-rtdb.firebaseio.com",
-    projectId: "vibecheq-prod",
-    storageBucket: "vibecheq-prod.appspot.com",
-    messagingSenderId: "670048616046",
-    appId: "1:670048616046:web:473b754e7177448ce8707f",
-    measurementId: "G-9H7DQB1GY8"
-}
-  
-log('firebaseConfig:', firebaseConfig)
-
-const app = initializeApp(firebaseConfig);
-log('app initialized. app:', app)
-
-const auth = getAuth()
-
-onAuthStateChanged(auth, user => {
-    if (user != null) {
-        log('logged in!')
-    } else {
-        log('no user')
-    }
-})
-
 export default function DeleteMyData(props: any) {
 
+    const [auth, setAuth] = useState<null | Auth>(null)
     const [phoneNumber, setPhoneNumber] = useState<Value>()
     const [otp, setOtp] = useState('')
     const [isLoading, setLoading] = useState(false)
     const [confirmationResult, setConfirmationResult] = useState<null | ConfirmationResult>(null)
     const [user, setUser] = useState<null | User>(null)
     const [userDeleted, setUserDeleted] = useState(false)
+
+    function init() {
+        const config = window.location.origin.includes('localhost')
+        ? {
+            apiKey: "AIzaSyBS_IdUAjkyZaiiGosPPnr23mCn2MiItVk",
+            authDomain: "vibecheq-dev-d930b.firebaseapp.com",
+            databaseURL: "https://vibecheq-dev-d930b-default-rtdb.firebaseio.com",
+            projectId: "vibecheq-dev-d930b",
+            storageBucket: "vibecheq-dev-d930b.appspot.com",
+            messagingSenderId: "958818368953",
+            appId: "1:958818368953:web:a42c67cd34e1a81c268a68",
+            measurementId: "G-QM9V6YHLE2"
+        }
+        : {
+            apiKey: "AIzaSyDMDfZyu9ysYxKCfYOaDeBW75-ZkLrnQpI",
+            authDomain: "vibecheq-prod.firebaseapp.com",
+            databaseURL: "https://vibecheq-prod-default-rtdb.firebaseio.com",
+            projectId: "vibecheq-prod",
+            storageBucket: "vibecheq-prod.appspot.com",
+            messagingSenderId: "670048616046",
+            appId: "1:670048616046:web:473b754e7177448ce8707f",
+            measurementId: "G-9H7DQB1GY8"
+        }
+        // setFirebaseConfig(config)
+        const app = initializeApp(config)
+        // setApp(initializeApp(config))
+        const auth = getAuth(app)
+        setAuth(auth)
+
+        onAuthStateChanged(auth!, user => {
+            if (user != null) {
+                log('logged in!')
+            } else {
+                log('no user')
+            }
+        })
+    
+
+    }
 
     async function submit() {
         log('in submit. phone number:', phoneNumber)
@@ -79,7 +76,7 @@ export default function DeleteMyData(props: any) {
         }    
         setLoading(true)
 
-        let verifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        let verifier = new RecaptchaVerifier(auth!, 'recaptcha-container', {
             'size': 'invisible',
             'callback': (response: any) => {
               // reCAPTCHA solved, allow signInWithPhoneNumber.
@@ -87,7 +84,7 @@ export default function DeleteMyData(props: any) {
             }
         });
 
-        const result = await signInWithPhoneNumber(auth, String(phoneNumber), verifier)
+        const result = await signInWithPhoneNumber(auth!, String(phoneNumber), verifier)
             .catch((err) => {
                 log('signInWithPhoneNumber error:', err)
                 window.location.reload()
@@ -130,6 +127,10 @@ export default function DeleteMyData(props: any) {
         setLoading(false)
         setUserDeleted(true)
     }
+
+    useEffect(() => {
+        init()
+    }, [])
 
     useEffect(() => {
         log('phoneNumber:', phoneNumber)
